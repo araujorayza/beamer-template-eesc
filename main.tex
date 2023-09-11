@@ -1,0 +1,76 @@
+\documentclass[aspectratio=127]{beamer}
+%%%%%%%% tema e cor %%%%%%%%
+\mode<presentation> {
+	\usetheme[height=1]{Madrid}
+	\useinnertheme{circles}
+	\usecolortheme{rose} %or orchid
+	% \usecolortheme{albatross}
+	\usecolortheme[rgb={0.0, 0.3, 0.6}]{structure}
+	%\setbeamercolor{frametitle}{fg=white,bg=}
+	\setbeamerfont{frametitle}{size=\huge}
+	\setbeamerfont{footline}{size=\small}
+	\addtobeamertemplate{title page}{\vspace*{-4cm}}{}
+}
+\usepackage[english]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage{graphicx} 
+\usepackage{booktabs} 
+\usepackage{pgfplots}
+\usepackage{multirow}
+\usepgfplotslibrary{fillbetween}
+\usepackage{typed-checklist}
+%\usetikzlibrary{patterns}
+\pgfplotsset{compat=1.16} %original 1.15
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
+\usepackage[style=verbose-ibid,backend=bibtex,isbn=false,url=false]{biblatex}
+\usepackage[autostyle]{csquotes}  
+\bibliography{references}
+\usepackage[figurename=Fig.]{caption}
+\usepackage[tablename=Table]{caption}
+\usepackage{tabularx}
+\usepackage{mwe}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsxtra}
+\usepackage{amstext}
+\input{config.tex}
+\beamertemplatenavigationsymbolsempty
+
+\begin{document}
+
+
+\begin{frame}
+	\titlepage 
+\end{frame}
+
+\setbeamertemplate{background canvas}{
+	\centering
+	\includegraphics[height=\paperheight,width=\paperwidth,page=3]{img/test.pdf}
+}
+
+\begin{frame}
+	\frametitle{Outline} 
+		\tableofcontents 
+\end{frame}
+
+\include{files/ppt.tex}
+
+
+\begin{frame}
+	\begin{center}
+		{\huge Thank You!}
+	\end{center}
+\end{frame}
+
+%%%%%%%% referencias %%%%%%%%
+%\nocite{*}
+%\begin{frame}{References}
+%\bibliographystyle{apalike}
+%\bibliography{library.bib}
+%\end{frame}
+\end{document}

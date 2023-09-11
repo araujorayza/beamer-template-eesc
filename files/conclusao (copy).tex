@@ -1,0 +1,44 @@
+\begin{frame}{Conclusions}
+\begin{itemize}
+\item Review of fundamental LQR-Based formation control strategies;
+\item Identification and validation of dynamic model for quadcopter;
+\item Derivation of Robust LQR for a single quadrotor;
+\item Derivation of Robust LQR for formation control;
+\item Development of ROS-based platform for evaluation and autonomous flight;
+\item Validation for indoor and outdoor scenarios;
+\item Simulation for formation control in centralized approach.
+\end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{Conclusions}
+
+Schedule for next steps:
+
+\begin{itemize}
+	\item Setup a local network to perform real flight tests to evaluate the formation control for multiple quadcopters. 
+	\item Extend the work of cooperative control to wheeled robots;
+	\begin{itemize}
+		\item Develop the \textit{ground\_dev}, a \textit{drone\_dev} equivalent
+		\item Adapt and implement the resources of the \textit{ground\_dev} to a Pioneer 3AT robot.
+		\item Implement the formation control for several wheeled robots. 
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Conclusions}
+
+Schedule for next steps:
+
+\begin{itemize}
+	\item Develop a robust decentralized control strategy for formation control. Either we solve the open synchronization problem explained in Section \ref{sub:RLQRquadZhang} or we derive another robust decentralized solution for the formation problem. This will enable bigger and more complex network interactions. Additionally, we try to find robust solutions that can be applied to heterogeneous robots.
+	\item Simulate package dropouts in the formation structure and formulate control strategies in order to predict and overcome this issue. We understand that the package dropouts are the simpler of the two presented issues in a networked control system. This can be seen as a failure where the controller or the actuator do not have information at a given time and must come with a solution.
+	\item Consider the network-induced delay in the robust control design. Some of the up-to-date research in the lab deals with robust controller in the presence of delay \cite{Daiane2018,Daiane2018art2}. The first step in this direction is to adapt the existing results to the formation of multi-agent systems.
+	\item Integrate support to the RTK GPS in the \textit{ground\_dev} and \textit{drone\_dev} in order to improve the pose estimation in outdoor experiments.
+	\item Design a user friendly interface so that the user can easily provide a task to a heterogeneous set of robots that will cooperatively work in a communication fault-tolerant environment.
+	\item Publishing of articles. The following contribution is currently being written in article format: Robust LQR-Based position-control of a multi-agent formation.
+\end{itemize}
+
+\end{frame}

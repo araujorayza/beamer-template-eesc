@@ -1,0 +1,69 @@
+\begin{frame}{Motivation}
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{figuras/images}
+\caption{Intel light show on July 15, 2018 Source: \textit{VCG/VCG via Getty Images} (2018)}
+% \label{fig:my_label}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Motivation}
+\begin{itemize}
+	\item Nonlinear systems are ubiquitous in real applications
+	\item Linear controllers are not ideal and not always possible
+	\item Gain-scheduling is a suiting middle ground
+% 	\item Feedback Linearization \autocite{VagoSantana2014a} 
+% 	\item Linear  Quadratic Regulator + Sliding mode \autocite{Tang2015} 
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Motivation}{Gain-scheduling design}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\vspace{-0.10cm}
+\begin{block}{Linear Parameter Varying Framework}
+    \begin{itemize}
+       \item Linear systems with parameters that vary with time during operation
+       \item Allows the systematic design of gain scheduling controllers
+   \end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.5\textwidth}  %%<--- here
+	\vspace{0.50cm}
+    \begin{itemize}
+    	\item Design conditions: Lyapunov theory, the small-gain theorem or invariant set theory.
+    	\item Research focused on reducing conservatism
+    \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Motivation}{}
+	    \begin{itemize}
+	    	\item LPV vs Takagi-Sugeno Fuzzy 
+	    	\item The TS-fuzzy framework can represent nonlinear systems exactly
+	    	\item Design conditions are LMIs
+	    	\item Most applications in the literature are simulations
+	    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Objectives}
+
+
+\begin{block}{Main Objectives}
+\begin{itemize}
+	\item Overview  the LPV framework;
+	\item Identify the similarities between the LPV and TS-fuzzy frameworks;
+	\item Design a control system for a quadrotor to track a desired trajectory using a gain scheduling controller.  
+	\item Implement the designed control system, run simulations and experiments to evaluate the controller performance.
+\end{itemize}
+\end{block}
+\end{frame}

@@ -1,0 +1,798 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{History}
+\begin{frame}{Gain Scheduling \autocite{Rugh2000}}
+\begin{block}{Definition}
+	Gain scheduling (GS) is a control technique in which the controller structure remains constant in operation, while the gains are conveniently updated according to the current value of scheduling signals that may be either exogenous or endogenous with respect to the plant. 
+\end{block}
+
+	\begin{itemize}
+		\item Initially it had no formal design framework. Early works were mainly application based.
+		\item Allows the use of linear design tools to control nonlinear systems
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Linear Parameter Varying Systems}
+\begin{block}{}
+The Linear Parameter Varying (LPV) Paradigm concerns itself with a special case of Time Varying Systems (TVS). 
+\begin{equation}  \label{eq:gen_LPV}
+\begin{bmatrix}
+\dot{x}\\
+y
+\end{bmatrix} = \begin{bmatrix}
+A(\rho(t)) & B(\rho(t))\\
+C(\rho(t)) & D(\rho(t))
+\end{bmatrix}\begin{bmatrix}
+x\\
+u
+\end{bmatrix}
+\end{equation}
+\end{block}
+
+\begin{itemize}
+	\item Original paper by Jeff Shamma\autocite{Shamma1988}$^{,}$\autocite{Shamma1990}
+    \item Hot topic in systems and control
+ 	\item Not widely spread in industrial applications
+    \item Has become a standard in GS design
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear Parameter Varying Systems}
+\begin{block}{}
+The Linear Parameter Varying (LPV) Paradigm concerns itself with a special case of Time Varying Systems (TVS). 
+\begin{equation}  \label{eq:gen_LPV}
+\begin{bmatrix}
+\dot{x}\\
+y
+\end{bmatrix} = \begin{bmatrix}
+A(\rho(t)) & B(\rho(t))\\
+C(\rho(t)) & D(\rho(t))
+\end{bmatrix}\begin{bmatrix}
+x\\
+u
+\end{bmatrix}
+\end{equation}
+\end{block}
+
+\begin{itemize}
+	\item Scheduling parameters vary with time and are unknown a priori, but measured during operation. They can either be exogenous or endogenous. In the latter case, some authors refer to the system as quasi-LPV  \autocite{Sename}
+%\item Hot topic in systems and control
+% 	\item Not widely spread in industrial applications
+	%\item Has become a standard in GS design
+\end{itemize}
+
+\end{frame}
+\begin{frame}{LPV systems}
+    \begin{itemize}
+        \item Nonlinear systems that can be covered by the LPV framework: hybrid dynamical systems, jump linear systems and switched linear systems. \autocite{Hoffmann2015}
+    \end{itemize}
+\end{frame}
+\subsection{Field Overview}
+
+\subsection{What's lacking in literature}
+
+\subsection{System Behavior}
+
+\section{LPV vs T-S Fuzzy}
+\begin{frame}{LPV vs Takagi-Sugeno Fuzzy}
+    \begin{itemize}
+        \item There exists a close connection between the LPV and Takagi-Sugeno fuzzy frameworks \autocite{Rotondo2018} that has not been explored by the literature
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{LPV vs Takagi-Sugeno Fuzzy}
+    \begin{itemize}
+        \item Control design for a mobile robot: a fuzzy LPV approach \autocite{Tsourdos}
+        
+        \item Flight Control Design For A STT Missile: A Fuzzy LPV Approach \autocite{Blumel2017}
+        
+        \item State-Feedback H$\infty$ Control for LPV System Using T-S Fuzzy Linearization Approach \autocite{Liu2013}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{LPV vs Takagi-Sugeno Fuzzy}
+    \begin{itemize}
+    
+    \item Continuous quasi-LPV Systems: how to leave the quadratic Framework? \autocite{JAADARI2013}
+        
+        \item Automated generation and comparison of Takagi–Sugeno and polytopic quasi-LPV models \autocite{Rotondo2015}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Takagi-Sugeno Fuzzy systems}
+    \begin{definition} A Linear Takagi-Sugeno  fuzzy model \autocite{Tanaka2001} is a representation of a nonlinear system, described by fuzzy IF-THEN rules of the form
+\begin{equation} \label{tsfuzzysys}
+\begin{array}{l}
+\mbox{IF ~ } \big(z_1(t)\mbox{~is~} M_{i1}\big) \mbox{~and~} \big(z_2(t)\mbox{~is~} M_{i2}\big)\mbox{~and~} \ldots \mbox{~and~}\big(z_p(t) \mbox{~is~} M_{ip}\big
+),\\[1mm]
+\mbox{THEN~}
+\left\{\begin{array}{l}
+\dot{x}(t)={A}_i{x}(t) + B_iu(t),\\
+y(t)={C}_i{x}(t),
+\end{array} \right. \quad i=1,2,\ldots, r.
+\end{array}    
+\end{equation}
+where $M_{ij}$ is the Fuzzy set, $r$ the number of model rules and $z_i(t)$ is the $i^{th}$ premise variable, which can either be a function of the states or external disturbances. 
+\end{definition}
+\end{frame}
+
+\begin{frame}{Takagi-Sugeno Fuzzy systems}
+    The overall fuzzy model of the system is achieved by fuzzy blending of the local models, that is, given a pair $(x(t),u(t))$, the final output is inferred as
+\begin{eqnarray} \label{tsfuzzyblend}
+    \dot{x} &=& \displaystyle  \sum_{i=1}^{r}h_i(z(t))\{A_ix(t)+B_iu(t)\}\\
+y&=& \displaystyle  \sum_{i=1}^{r}h_i(z(t))C_ix(t)
+\end{eqnarray}
+where $h_i(z(t))$ are called the membership functions and satisfy the following convexity properties
+\begin{equation}
+    \displaystyle\sum_{i=1}^{r}h_i(z(t)) = 1, \displaystyle h_i(z(t)) \geq 0.
+\end{equation}
+\end{frame}
+
+\begin{frame}{Automated generation and comparison of Takagi–Sugeno and polytopic quasi-LPV models}
+\begin{table}[htb]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{
+    |>{\centering\arraybackslash}X 
+    |>{\centering\arraybackslash}X | }
+    \hline Polytopic LPV & T-S fuzzy\\ \hline \hline
+    $\sigma.x(\tau) = \displaystyle  \sum_{i=1}^{N}\pi_i(\theta(\tau))(A_ix(\tau)+B_iu(\tau))$ & $\sigma.x(\tau) = \displaystyle  \sum_{i=1}^{N}\omega_i(\nu(\tau))(A_ix(\tau)+B_iu(\tau))$\\
+    $y= \displaystyle \sum_{i=1}^{N}\pi_i(\theta(\tau))C_ix(\tau)$ &
+    $ y= \displaystyle  \sum_{i=1}^{N}\omega_i(\nu(\tau))C_ix(t)$ \\
+    $\displaystyle\sum_{i=1}^{N}\pi_i(\theta(\tau)) = 1$ &
+    $\displaystyle\sum_{i=1}^{N}\omega_i(\nu(\tau)) = 1$ \\
+    $\displaystyle \pi_i(\theta(\tau)) \geq 0$ &
+    $\displaystyle \omega_i(\nu(\tau)) \geq 0$ \\
+    \hline
+    \end{tabularx}
+    \label{tab:comp}
+\end{table}
+\end{frame}
+
+\begin{frame}{Automated generation and comparison of Takagi–Sugeno and polytopic quasi-LPV models}
+\blockquote{There are strong analogies between polytopic LPV and TS systems. In fact, the only remarkable difference between
+the two frameworks is the set of mathematical tools that are used for obtaining the system description. In the LPV case, these tools belong to the standard mathematics; on the other hand, in the TS case, they belong to the fuzzy theory. In particular, the correspondences between polytopic LPV and TS systems are between:
+\begin{itemize}
+    \item the scheduling parameters $\theta$ of LPV systems and the premise variable $\nu$ of TS systems; 
+    \item the coefficients of the polytopic decomposition $\pi_i$ and the coefficients $\rho_i$ that describe the level of activation of each local model;
+\item the vertex systems in the polytopic LPV case and the subsystems in the TS case
+\end{itemize}}
+
+
+\end{frame}
+
+\begin{frame}{Automated generation and comparison of Takagi–Sugeno and polytopic quasi-LPV models}
+Problems:
+    \begin{itemize}
+        \item LPV notation is not standard, hindering a more profound analysis
+        \item Sector nonlinearity application
+    \end{itemize}
+\end{frame}
+\begin{frame}{Our proposal}
+    The equivalence between T-S fuzzy and LPV goes beyond what is stated in Rotondo et al.
+    \begin{table}[htb]
+    \centering
+    \begin{tabularx}{\textwidth}{c|c}
+         Polytopic LPV& T-S fuzzy  \\ \hline \hline
+                $ \dot{x} = \displaystyle  \sum_{i=1}^{N}\rho_i(t)\{A_ix(t)+B_iu(t)\}$ & $\dot{x} = \displaystyle  \sum_{i=1}^{r}h_i(z(t))\{A_ix(t)+B_iu(t)\}$ \\
+                $y= \displaystyle \sum_{i=1}^{N}\rho_i(t)C_ix(t)$ &  $ y= \displaystyle  \sum_{i=1}^{r}h_i(z(t))C_ix(t)$ \\
+                $\displaystyle\sum_{i=1}^{N}\rho_i(t) = 1$ & $\displaystyle\sum_{i=1}^{r}h_i(z(t)) = 1$ \\
+                $\displaystyle\rho_i(t) \geq 0$ & $\displaystyle h_i(z(t)) \geq 0$
+     \end{tabularx}
+    \label{tab:mycomp}
+\end{table}
+\end{frame}
+
+\begin{frame}{Our proposal}
+\begin{itemize}
+        \item T-S fuzzy is a special case of LPV systems
+        \item Polytopic LPV and T-S fuzzy are indistinguishable for control design. 
+        \item Proof: 
+        \begin{itemize}
+            \item formal definition of LPV systems (not found in literature)
+            \item every polytopic LPV system can be approximated by a T-S fuzzy model
+        \end{itemize}
+        
+    \end{itemize}
+\end{frame}
+\begin{frame}{}
+    \begin{theorem}
+A T-S fuzzy system is a polytopic LPV system.
+\end{theorem}
+\begin{proof} \renewcommand{\qedsymbol}{}
+To prove this affirmation, we will write the T-S fuzzy system \eqref{tsfuzzyblend} in the form of \eqref{eq:gen_LPV}. First, we write it in vector form
+\begin{equation} \label{fuzzy_lpv}
+ \begin{bmatrix}
+    \dot{x}\\
+    y
+ \end{bmatrix} = \begin{bmatrix} 
+\displaystyle    \sum_{i=1}^{r}h_i(z(t))A_i & \displaystyle \sum_{i=1}^{r}h_i(z(t))B_i\\
+\displaystyle    \sum_{i=1}^{r}h_i(z(t))C_i & 0
+ \end{bmatrix}\begin{bmatrix}
+ x\\
+ u
+ \end{bmatrix}.
+\end{equation}
+Then, choose
+\begin{equation}
+    \rho(t) :=  \left [ h_i(z(t))\right ].
+\end{equation}
+\end{proof}
+\end{frame}
+
+\begin{frame}{}
+    \begin{proof}
+So we can write
+\begin{eqnarray} \label{matrices}
+A(\rho(t)) \coloneqq \sum_{i=1}^{r}\rho_i(t)A_i =  \sum_{i=1}^{r}h_i(z(t))A_i\\
+B(\rho(t)) \coloneqq \sum_{i=1}^{r}\rho_i(t)B_i =  \sum_{i=1}^{r}h_i(z(t))B_i\\
+C(\rho(t)) \coloneqq \sum_{i=1}^{r}\rho_i(t)C_i =  \sum_{i=1}^{r}h_i(z(t))C_i
+\end{eqnarray}
+Substituting \eqref{matrices} into \eqref{fuzzy_lpv} yields \eqref{eq:gen_LPV}, thus completing the proof. 
+\end{proof}
+\end{frame}
+
+\begin{frame}
+	Idea: prove that a general polytopic LPV system satisfies the assumptions and, therefore, can be approximated by a T-S model. 
+	
+	(??) Can the corollary be applied?
+	
+	\begin{eqnarray} 
+    \dot{x} &=& \displaystyle  \sum_{i=1}^{N}\rho_i\{A_ix(t)+B_iu(t)\}\\
+y&=& \displaystyle  \sum_{i=1}^{N}\rho_iC_ix(t)\\
+&& \displaystyle\sum_{i=1}^{N}\rho_i = 1, \displaystyle \rho_i \geq 0.
+\end{eqnarray}
+
+\end{frame}
+% \section{Formal definition of LPV systems}
+% \begin{frame}{Definition of LPV systems}
+% The definition we wish to propose should be
+% \begin{itemize}
+%         \item A special case of a definition of a dynamic system
+%         \item The general representation should be $\dot{x} = A(\rho)x+B(\rho)u$
+%         \item Needs to be valid for affine and LFT parameter dependencies
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Definition of dynamical system}
+% A continuous-time dynamical system $\mathcal{G}$ is the octuple $(\mathcal{D,U},U,\mathcal{Y},Y,\mathbb{R},s,h)$, where $s: \mathbb{R} \times \mathbb{R} \times \mathcal{D} \times \mathcal{U} \rightarrow \mathcal{D}$ and $h: \mathbb{R} \times \mathcal{D} \times U \rightarrow Y$ are such that the following axioms hold \autocite{Chellaboina2008}:
+
+% \begin{itemize}
+%     \item(Continuity) For every $t_0 \in \mathbb{R}, x_0 \in \mathcal{D}$ and $u \in \mathcal{U}, s(.,t_0,x_0,u)$ is continuous for all $t \in \mathbb{R}$ and continuously differentiable on $\mathcal{D}$ 
+%     \item(Consistency) For every $x_0 \in \mathcal{D}, u \in \mathcal{U}$, and $t_0 \in \mathbb{R}, ~s(t_0,t_0,x_0,u) = x_0$
+%     \item(Determinism) For every $t_0 \in \mathbb{R}$ and $x_0 \in \mathcal{D}, ~s(t,t_0,x_0,u_1) = s(t,t_0,x_0,u_2)$ for all $t \in \mathbb{R}$ and $u_1,u_2 \in \mathcal{U}$ satisfying $u_1(\tau) = u_2(\tau), \tau \in [t_0,t]$
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Definition of dynamical system}
+% \begin{itemize}
+%     \item(Group property) $s(t_2,t_0,x_0,u) = s(t_2,t_1,s(t_1,t_0,x_0,u),u)$ for all $t_0,t_1,t_2 \in \mathbb{R}, t_0 \leq t_1 \leq t_2, x_0 \in \mathcal{D}$, and $u \in \mathcal{U}$.
+%     \item(Read-out map) There exists $y \in \mathcal{Y}$ such that $y(t) = h(t,s(t,t_0,x_0,u),u(t))$ for all $x_0 \in \mathcal{D}, u \in \mathcal{U}, t_0 \in \mathbb{R}$, and $t \in \mathbb{R}$.
+% \end{itemize}
+% The map $s(t,t_0,x_0,u)$ is referred to as the flow or trajectory of the dynamical system and choosing $x(t) = s(t,t_0,x_0,u)$ it gives rise to a differential equation of the form
+% \begin{equation}
+%     \dot{x} = F(t,x,u), \quad x(t_0) = x_0, \quad t \geq t_0
+% \end{equation}
+% where
+% \begin{equation}
+% F(t,x,u) = \frac{dx}{dt} = \frac{\partial s}{\partial t}(t,t_0,x,u) \bigg|_{t=t_0}.     
+% \end{equation}
+% We represent dynamical systems through their differential equation \hfill $\triangle$
+% \end{frame}
+
+% \begin{frame}{Definition of LPV system}
+% An LPV system is a continuous-time dynamical system 
+% nonuple $(\mathcal{D,P, U},U,\mathcal{Y},Y,\mathbb{R},s,h)$, where $s: \mathbb{R} \times \mathbb{R} \times \mathcal{D} \times \mathcal{P} \times \mathcal{U} \rightarrow \mathcal{D}$ and $h: \mathbb{R} \times \mathcal{D} \times U \rightarrow Y$ 
+% such that the following axioms hold:
+% \begin{itemize}
+%     \item it is a continuous-time dynamical system
+%     \item (Additivity) $s(t,t_0,x_1,\rho,u_1) + s(t,t_0,x_2,\rho,u_2) = s(t,t_0,x_1+x_2,\rho,u_1+u_2)$
+%     \item (Homogeneity) $s(t,t_0,\alpha x_0,\rho,\alpha u) = \alpha s(t,t_0,x_0,\rho,u)$
+%     \item $\rho = \rho(t) \in \mathcal{P}$
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Definition of LPV system}
+%     If we choose s as 
+% \begin{equation}
+%     s(t,t_0,x_0,\rho,u) = \Phi(t,t_0)x_0 + \int_{t_0}^t\Phi(t,\tau)B(\rho)u(\tau)d\tau
+% \end{equation}
+% where $\Phi(t,t_0)$ denotes the state transition matrix given by the Peano-Baker series \autocite{Antsaklis2006}
+% \begin{equation}
+%     \Phi(t,t_0) = I + \int_{t_0}^tA(\rho(\tau_1))d\tau_1 + \int_{t_0}^tA(\rho(\tau_1))\int_{t_0}^{\tau_1}A(\rho(\tau_2))d\tau_2d\tau_1 + ...
+% \end{equation}
+% \end{frame}
+
+% \begin{frame}{Definition of LPV system}
+%     Lets derive the ODE form
+% \begin{gather*}
+%     \frac{ds}{dt}(t,t_0,x,\rho,u) = \dot{\Phi}(t,t_0)x + \Phi(t,t)B(\rho)u\cdot1 - \Phi(t,t_0)B(\rho)u\cdot0 + \\ \int_{t_0}^t\dot{\Phi}(t,\tau)B(\rho)ud\tau\\
+%     \frac{ds}{dt}(t,t_0,x,\rho,u) = A(\rho)\Phi(t,t_0)x + \Phi(t,t)B(\rho)u + \int_{t_0}^tA(\rho)\Phi(t,\tau)B(\rho)ud\tau\\
+%     \frac{ds}{dt}(t,t_0,x,\rho,u) \bigg|_{t=t_0} = A(\rho)\Phi(t,t_0)x + \Phi(t,t)B(\rho)u(t) +\\ \int_{t_0}^tA(\rho)\Phi(t,\tau)B(\rho)u(\tau)d\tau \\
+%     \Rightarrow \dot{x}(t) = A(\rho)x(t) + B(\rho)u(t), \quad x(t_0) = x_0, \quad t \geq t_0
+% \end{gather*}
+% \end{frame}
+
+% \begin{frame}{Definition of LPV system}
+%     the ODE derived from $s$ has the general form
+% \[\dot{x} = A(\rho(t))x+B(\rho(t))u\]
+% where $x(t) \in \mathbb{R}^n$ is the state vector, $u(t) \in \mathbb{R}^{n_i}$ is the input vector,   $\rho(t) \in \mathbb{R}^N$ is the vector of time-varying parameters, also called scheduling parameters, and $A$ and $B$ are matrices of appropriate dimensions. The scheduling parameters can be a function of time, state, input, external parameter or any combination of those.
+% \end{frame}
+
+% \begin{frame}{Summary}
+% Advantages of the LPV - Fuzzy "merge"
+% \begin{itemize}
+%     \item Major fields developed independently, results can be exchanged
+%     \item Use of sector nonlinearity
+%     \item T-S fuzzy non quadratic framework
+% \end{itemize}
+% \end{frame}
+% \section{PhD Project}
+% \begin{frame}{PhD Project}
+%     Results so far:
+% \begin{itemize}
+%     \item Comprehensive literature/field review
+%     \item Formally defined LPV systems
+%     \item Proved that T-S fuzzy is a special case of LPV systems
+%     \item 4 different models of a real quadrotor
+%     \item Designed and applied controller to quadrotor (experimental and simulation results)
+%     \item Controllability results: we were not able to find feasible output feedback controllers for any of the models. Few, contradictory results in the literature.
+%     \item Generalized control energy (model with unique equilibrium at the origin)
+%     \item SBAI
+%     \item DINCON
+%     \item ICUAS
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Timeline}
+%     \begin{itemize}
+%     \item End of scholarship: July 30th
+%     \item Presentation: July or August
+%     \item Final results: March
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Next steps}
+%     \begin{itemize}
+%     \item Prove that T-S fuzzy theorems work for polytopic LPV
+%     \item Submit a journal paper*
+%     \item Comments: modeling uncertainty in real life applications
+% \end{itemize}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Modeling}{Linear Fractional Representation vs Affine}
+% % 			\begin{figure} 
+% % 				\centering
+% % 				\begin{tikzpicture}[node distance=1cm, auto]  
+% % 				\tikzset{
+% % 					mynode/.style={rectangle,rounded corners,draw=black, top color=white, bottom color=blue!30,very thick, inner sep=1em, minimum size=4em, text centered},
+% % 					mynode2/.style={rectangle,rounded corners,draw=black, top color=white, bottom color=blue!30,very thick, inner sep=1em, minimum size=6em, text centered},
+% % 					myarrow/.style={->, >=latex', shorten >=1pt, thick},
+% % 					mylabel/.style={text width=7em, text centered} 
+% % 				}  
+% % 				\node[mynode] (manufacturer) {${\rho}(k)$};  
+% % 				\node[below=3cm of manufacturer] (dummy) {}; 
+% % 				\node[mynode2, below=0.3cm of manufacturer] (retailer1) {${M}$};  
+% % 				% The text width of 7em forces the text to break into two lines. 
+				
+% % 				% \draw[myarrow] (retailer1.west) -- ++(-.5,0) -|  (manufacturer.west);	
+% % 				\draw[myarrow] (-1.25,-1.55)-- ++(-.5,0) -- ++(0,+1.6) -- ++(0.96,0);	
+% % 				\draw[myarrow] (0.84,0) -- ++(.95,0) -- ++(0,-1.6) -- ++(-0.57,0);
+				
+% % 				\node at (-1.7,0.35) {$l(k)$};
+% % 				\node at (+1.7,0.35) {$p(k)$};
+				
+% % 				% There is a slight overlap of the arrows with the (manufacturer) south edge
+% % 				% because creating the offset in another way didn't compile. 
+				
+% % 				\draw[myarrow] (-1.05-0.2,-2.15-0.56) + (0,0.6)-- ++(-1,0.6);
+% % 				\draw[myarrow] (-1.05-0.2,-2.15-1.12) + (0,0.6)-- ++(-1,0.6);
+% % 				\draw[myarrow] (-1.05-0.2,-3.35-0.5) + (0,0.6)-- ++(-1,0.6);
+				
+				
+				
+% % 				\node at (-2.85-0.2,-2.1) {$x(k+1)$};
+% % 				\node at (-2.55-0.2,-2.1-0.56) {$z(k)$};
+% % 				\node at (-2.55-0.2,-2.1-1.12) {$y(k)$};
+				
+				
+% % 				\draw[myarrow] (+2.03+0.18,-2.15-0.56)+ (0,0.6)-- ++(-1,0.6);
+% % 				\draw[myarrow] (+2.03+0.18,-2.15-1.12)+ (0,0.6)-- ++(-1,0.6);
+% % 				\draw[myarrow] (+2.03+0.18,-3.35-0.5)+ (0,0.6)-- ++(-1,0.6);
+				
+% % 				\node at (+2.6+0.18,-2.1) {$x(k)$};
+% % 				\node at (+2.6+0.18,-2.1-0.56) {$w(k)$};
+% % 				\node at (+2.6+0.18,-2.1-1.12) {$u(k)$};
+				
+% % 				% \draw[<->, >=latex', shorten >=2pt, shorten <=2pt, bend right=45, thick, dashed] 
+% % 				%     (retailer1.south) to node[auto, swap] {Competition}(retailer2.south); 
+% % 				% The swap command corrects the placement of the text.
+				
+% % 				\end{tikzpicture} 
+% % %				\medskip
+% % %				\caption{LFT plant diagram} \label{fig:LFTdiagram}
+% % 			\end{figure}
+% % 			\vspace{-0.5cm}
+% % 			\begin{equation*} 
+% % 			\begin{bmatrix}
+% % 			l \\ \hline
+% % 			\dot{x}\\
+% % 			z\\
+% % 			y
+% % 			\end{bmatrix} = \begin{bmatrix} \begin{array}{c|ccc}
+% % 			D_{lp}  &C_l 	&D_{lw} &D_{lu}\\
+% % 			\hline
+% % 			B_p		&A		&B_w 	&B_u \\
+% % 			D_{zp}	&C_z 	&D_{zw} &D_{zu}\\
+% % 			D_{yp}	&C_y 	&D_{yw} &D_{yu}
+% % 			\end{array} \end{bmatrix}\begin{bmatrix}
+% % 			p\\ \hline
+% % 			x\\
+% % 			w\\
+% % 			u
+% % 			\end{bmatrix}, ~p = P l
+% % 			\end{equation*}		
+	
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Modeling}{Linear Fractional Representation vs Affine}
+% % \begin{equation*} \label{eq:LFT_upper}
+% % \begin{bmatrix}
+% % \dot{x}\\
+% % z\\
+% % y
+% % \end{bmatrix} = \underbrace{\begin{bmatrix}
+% % A(P)		&B_w(P) 	&B_u(P) \\
+% % C_z(P) 	&D_{zw}(P) &D_{zu}(P)\\
+% % C_y(P) 	&D_{yw}(P) &D_{yu}(P)
+% % \end{bmatrix}}\begin{bmatrix}
+% % x\\
+% % w\\
+% % u
+% % \end{bmatrix}
+% % \end{equation*}
+
+% % \begin{equation*} 
+% %  \begin{bmatrix}
+% % A		&B_w 	&B_u\\
+% % C_z 	&D_{zw} &D_{zu}\\
+% % C_y 	&D_{yw} &D_{yu}
+% % \end{bmatrix} + \begin{bmatrix} 
+% % B_p\\
+% % D_{zp}\\
+% % D_{yp}
+% % \end{bmatrix}P(I-D_{lp}P)^{-1} \begin{bmatrix} C_l &D_{lw} &D_{lu}\end{bmatrix}
+% % \end{equation*}
+
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Modeling}{Affine Parameter Dependency}
+% % \begin{itemize}
+% % 	\item Importance of the type of representation
+% % \end{itemize}
+% % \vspace{1cm}
+% % An LPV system is said to have affine parameter dependency if it can be represented by 
+% % \begin{equation}  
+% % \begin{bmatrix}
+% % \dot{x}\\
+% % y
+% % \end{bmatrix} = \begin{pmatrix}\begin{bmatrix}
+% % A_0 & B_0\\
+% % C_0 & D_0
+% % \end{bmatrix} + \sum_{i=1}^{N}\rho_i(t)\begin{bmatrix}
+% % A_i & B_i\\
+% % C_i & D_i
+% % \end{bmatrix} \end{pmatrix} \begin{bmatrix}
+% % x\\
+% % u
+% % \end{bmatrix}
+% % \end{equation}
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Modeling}{Affine Parameter Dependency}
+% %     \begin{itemize}
+% % 	\item [--] Overboundedness problem
+% % 	\item [+] Combined with Lyapunov theory, naturally derives LMI based design conditions
+% % 	\item Modeling procedures: Jacobian linearization, state transformation, nonlinear embedding, TS-fuzzy, etc.
+	
+% % \end{itemize}
+% % \end{frame}
+% % \begin{frame}{Modeling}{Affine LPV Systems}
+% % \begin{itemize}
+% % 	\item Importance of the type of representation
+% % % 	\item Focus on affine
+% % 	\item Modeling procedures: Jacobian linearization, state transformation, nonlinear embedding, TS-fuzzy, etc.
+% % \end{itemize}
+	
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Takagi-Sugeno fuzzy systems}
+% % \begin{block}{Definiton}
+% % A Takagi-Sugeno  fuzzy model is a representation of a dynamical nonlinear system, described by fuzzy IF-THEN rules of the form \autocite{Tanaka2001}
+% % \begin{equation}
+% % \begin{array}{l}
+% % \mbox{If ~ } \big(z_1(t)\mbox{~is~} M_{i1}\big) \mbox{~and~} \big(z_2(t)\mbox{~is~} M_{i2}\big)\mbox{~and~} \ldots \mbox{~and~}\big(z_p(t) \mbox{~is~} M_{ip}\big
+% % ),\\[1mm]
+% % \mbox{then~}
+% % \left\{\begin{array}{l}
+% % \dot{x}(t)={A}_i{x}(t)+{B}_i{u}(t),\\
+% % y(t)={C}_i{x}(t),
+% % \end{array} \right. \quad i=1,2,\ldots, r.
+% % \end{array}    
+% % \end{equation}
+% % where $M_{ij}$ Fuzzy set, $r$ number of model rules, $z_i(t)$ $i^{th}$ premise variable, $x \in \mathbb{R}^{n}$ state vector, $u \in \mathbb{R}^{n}$ input vector, $y \in \mathbb{R}^{n}$ output vector, $A, B$ and $C$ matrices of appropriate dimensions. 
+% % \end{block}
+
+
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Takagi-Sugeno fuzzy systems}
+% % 	Similarities between polytopic LPV and TS-fuzzy \autocite{Rotondo2016}:
+% % 	\begin{itemize}
+% % 		\item Membership functions work as scheduling parameters 
+% % 		\item Local models correspond to vertex systems
+% % 		 \item They have been treated as different by the research community and therefore researched independently. However, a few recent publications have been exploring the similarities.
+% % 	\end{itemize}
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 11111
+
+% % \begin{frame}{LPV Analysis and Synthesis}
+% % 	Consider the general autonomous LPV system
+% % 	\begin{equation} 
+% % 	\dot{x} = A(\rho)x \label{eq:aut_LPV}
+% % 	\end{equation}
+% % 	where $\rho \in P \subset \mathbb{R}^N$. Initally, we do not restrict the form of $A(\rho)$ or $P$. The most intuitive, simple Lyapunov function candidate and, usually, the first to be tested is the quadratic
+% % 	\begin{equation}
+% % 	V(x) = x^TPx
+% % 	\end{equation}
+% % 	where $P^T=P > 0$ is not a function of the varying parameter. Taking its time derivative yields
+% % 	\begin{equation}
+% % 	\dot{V}(x) = x^T(A^T(\rho)P + PA(\rho))x
+% % 	\end{equation}
+% % 	which results in the following stability condition
+% % 	\begin{equation} 
+% % 	A^T(\rho)P + PA(\rho) < 0, \forall ~\rho(t) \in P. \label{eq:stab}
+% % 	\end{equation}
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \begin{frame}{LPV Analysis and Synthesis}
+% % 	\begin{itemize}
+% % 		\item Has to be solved numerically
+% % 		\item Infinite dimensional
+% % 		\item Infinite constraints
+% % 	\end{itemize}
+	
+% % 	\begin{block}{}
+% % 		At some point the study of LPV analysis and synthesis becomes the study of turning a infinitely constrained infinite dimensional problem into a tractable one with a finite number of constraints that must give the same stability and performance properties. Furthermore, the problem needs to be in a form that is compatible with the currently available solvers.  
+% % 	\end{block}
+% % \end{frame}
+
+% % \begin{frame}{LPV Analysis and Synthesis}
+% % In order to do this, a number of assumptions is usually made:
+% % \begin{itemize}
+% % 	\item Plant description (model in one of the forms discussed earlier);
+% % 	\item Convexity of the parameter set;
+% % 	\item Form of the controller (state feedback \autocite{Rotondo2016}, output feedback \autocite{Al-Jiboory2018} and dynamic controllers \autocite{Veenman2014});
+% % 	\item Form of the Lyapunov function (quadratic, polynomial and affine),
+% % \end{itemize}
+% % \end{frame} 
+% % \begin{frame}{LPV Analysis and Synthesis}
+% % 	Frequently, the chosen numerically tractable forms are LMIs because they can be globally and efficiently solved by interior point methods in semidefinite programming \autocite{Tuan2001}.
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% % \begin{frame}{Synthesis Techniques}
+% % 	\begin{itemize}
+% % 		\item Small-gain Theorem
+% % 		\item Lyapunov Theory: quadratic and non-quadratic
+% % 		\item Invariant Set Theory
+% % 	\end{itemize}
+	
+% % \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %\begin{frame}{Research topics}{Affine LPV Systems}
+% %	\begin{itemize}
+% %		\item Modeling
+% %		\item Similarities between polytopic LPV and TS-fuzzy
+% %		\item Reducing conservatism of design conditions: using alternative Lyapunov functions, introduction of slack variables, invariant set techniques, etc
+% %	\end{itemize}
+% %	
+% %\end{frame}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Lyapunov Theory}
+% % 	Consider the following polytopic LPV system 
+% % 	\begin{eqnarray} \label{eq:syn_sys}
+% % 	\dot{x} = \sum_{i=1}^{N}\rho_i(t)A_i x + Bu.
+% % 	%y = \sum_{i=1}^{N}\rho_i(t)C_i x + \sum_{i=1}^{N}\rho_i(t)D_i u
+% % 	\end{eqnarray}
+% % 	For a quadratic Lyapunov function 
+% % 	\begin{equation} \label{eq:quad_lyap}
+% % 	V(x) = x^TPx
+% % 	\end{equation}
+% % 	We have 
+% % 	\begin{equation}
+% % 	\dot{V}(x) = x^T\Big\{(\sum_{i=1}^{N}\rho_i(t)A^T_i + K^T_iB^T) P + P(\sum_{i=1}^{N}\rho_i(t)A_i + K_iB)\Big\}.
+% % 	\end{equation}
+% % 	Imposing negative definiteness and applying a change of variables, we can state the next theorem.
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Lyapunov Theory}
+	
+% % 		\begin{theorem}[Quadratic Stability]\autocite{Rotondo2016}
+% % 			Let $Q > O$ and $\Gamma_i \in \mathbb{R}^{nxn}, i = 1, . . . ,N$ be such that:
+% % 			\[
+% % 			He\{A_iQ + B\Gamma_i\} < O  ~\forall i = 1, . . . ,N
+% % 			\]
+% % 			Then, the closed-loop system 
+% % 			\begin{eqnarray} \label{eq:syn_sys}
+% % 			\dot{x} = \sum_{i=1}^{N}\rho_i(t)A_i x + Bu.
+% % 			%y = \sum_{i=1}^{N}\rho_i(t)C_i x + \sum_{i=1}^{N}\rho_i(t)D_i u
+% % 			\end{eqnarray}
+% % 			with $u= - \sum_{i=1}^{N}\rho_i(t)K_i x $ and gains calculated as $K_i = \Gamma_iQ^{-1}, i = 1, . . . ,N$ and $P = Q^{-1}$, is quadratically stable.
+% % 		\end{theorem} 
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Lyapunov Theory}{Quadratic Stability}
+	
+% % 	\begin{itemize}
+% % 		\item[--] Very conservative 
+% % 		\item[+] Guarantees stability for arbitrarily fast parameter trajectories
+% % 		\item Numerous results\autocite{Rotondo2016} based on quadratic stability with performance requirements 
+% % 	\end{itemize}
+	
+% % \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Lyapunov Theory}{Non-quadratic}
+% % 	\begin{itemize}
+% % 		\item  Reducing conservatism and exploring different forms of obtaining design conditions are the main active research areas for LPV and TS-fuzzy systems \autocite{JAADARI2013}$^{,}$\autocite{Guerra2009}
+% % 		\item Alternative Lyapunov functions: affine parameter, polynomial, piecewise, etc
+% % 	\end{itemize}
+% % \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % \begin{frame}{Obtaining Synthesis Conditions}{Affine Parameter-dependent Lyapunov, a.k.a Fuzzy Lyapunov}
+% % 	Consider the following closed loop system
+% % 	\begin{equation} \label{eq22}
+% % 	\dot e(t) = \sum_{i=1}^{r}\sum_{j=1}^{r}h_ih_j(A_{ij}-BK_i)e,
+% % 	\end{equation}
+% % 	and the following Lyapunov function candidate $V({e}(t)):S \rightarrow \mathbb{R}$:
+% % 	\begin{equation}
+% % 	\label{lyap}
+% % 	V({e}(t))=\sum_{i=1}^{r}h_i{e}(t)'{P}_i{e}(t)
+% % 	\end{equation}
+% % 	where $S$ is a subset of $\mathbb{R}^N$.
+	
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \begin{frame}{Obtaining Synthesis Conditions}{Affine Parameter-dependent Lyapunov, a.k.a Fuzzy Lyapunov}
+% % 	As a consequence, the derivative of (\ref{lyap}) is given by
+% % 	\begin{equation}
+% % 	\label{der}
+% % 	\dot V({e}(t))=\sum_{i=1}^{r}h_i\Bigl(
+% % 	{\dot{e}}(t)' {P}_i{ e}(t) +{ e}(t)'{ P}_i{ \dot{e}}(t) \Bigr)+\sum_{\rho=1}^{r}\dot{h}_\rho{e}(t)'{P}_\rho{e}(t).
+% % 	\end{equation}
+% % 	The first-order time-derivative of the membership function $h_{i}$ appears in $\dot V({e}(t))$. By properties of the membership functions, it follows that
+% % 	\[
+% % 	\sum_{i=1}^{r}h_i=1 \Rightarrow \sum_{i=1}^{r}\dot h_i=0.
+% % 	\]
+% % 	Thus, \eqref{der} is nonconvex.
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \begin{frame}{Obtaining Synthesis Conditions}{Affine Parameter-dependent Lyapunov, a.k.a Fuzzy Lyapunov}
+% %     \begin{itemize}
+% %         \item The nonconvex term in \eqref{der}
+% %         \item Several Results \autocite{Elias}$^{,}$\autocite{Mozelli2009}
+% %     \end{itemize}
+% % \end{frame}
+% % \begin{frame}
+% % 	Let us define the following set
+% % 	\begin{equation}
+% % 	\label{eqfi}
+% % 	\mathcal{D}=\left\{e(t)\in S:|\dot{h}_{i}|\leq \phi_{i},~~\forall i\in \mathcal{R}\right\}
+% % 	\end{equation}
+% % 	where $\mathcal{R}=\{1,...,r\}$ and $\phi_{i}$ are given positive real numbers. 
+% % 	\begin{lemma} \label{lema1}
+% % 		\autocite{Tuan2001}Let be $\Psi_{ij}$ matrices of proper dimensions. If the following conditions hold 
+% % 		\begin{align*}
+% % 		\Psi_{ii}\prec {\bf 0},&\quad \forall i\in \mathcal{R},\\
+% % 		\frac{1}{r-1}\Psi_{ii}+\Psi_{ij}+\Psi_{ji}\prec {\bf 0},&\quad \forall i,j\in \mathcal{R}, i<j,    
+% % 		\end{align*}
+% % 		then,
+% % 		\[
+% % 		\sum_{i=1}^{r}\sum_{j=1}^{r}h_ih_j\Psi_{ij}\prec {\bf 0}.
+% % 		\]
+		
+	
+% % 	\end{lemma}
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \begin{frame}
+% % 		\begin{theorem}
+% % 			\autocite{Mozelli2009}Let $\phi_{\rho}$ known positive real numbers satisfying \eqref{eqfi}. If, for a positive constant $\mu$, there exist matrices $\mathbf{ Z}\in \mathbb{R}^{N\times N}$, $\mathbf{ Y}_{i}\in \mathbb{R}^{r\times N}$, $\mathbf{X}=\mathbf{X}'\in \mathbb{R}^{N\times N}$ and $\mathbf{Q}_{i}=\mathbf{Q}_{i}'\in \mathbb{R}^{N\times N}$ satisfying \eqref{eqt31}-\eqref{eqt34}. Then, feedback system \eqref{eq22}, with local gains $\mathbf{K}_{i}=\mathbf{Y}_{i}\mathbf Z^{-1}$, is asymptotically stable for any $e(t)\in \mathcal{D}$.
+% % 			\begin{align}
+% % 			\label{eqt31} {\bf Q}_i\succ {\bf 0},&\quad \forall i\in \mathcal{R},\\[2mm]
+% % 			\label{eqt32} {\bf Q}_i+{\bf X}\succeq{\bf 0},&\quad \forall i\in \mathcal{R},\\[2mm]
+% % 			\label{eqt33} \Psi_{ii}\prec {\bf 0},&\quad \forall i\in \mathcal{R},\\[2mm]
+% % 			\label{eqt34} \frac{1}{r-1}\Psi_{ii}+\Psi_{ij}+\Psi_{ji}\prec {\bf 0},&\quad \forall i,j\in \mathcal{R}, i<j,
+% % 			\end{align}
+		
+% % 		\end{theorem}
+	
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % \begin{frame}
+% % 	\begin{block}{Theorem}
+% % 			where
+% % 			\begin{align*}
+% % 			\Psi_{ij}&=\begin{bmatrix}
+% % 			{\bf \tilde{Q}}-{\bf A}_{ij}\mathbf{Z}-\mathbf{Z}'{\bf A}_{ij}'+{\bf B}\mathbf{Y}_i+\mathbf{Y}_i'{\bf B}' & \star \\
+% % 			{\bf Q}_{i}-\mu\Bigl({\bf A}_{ij}\mathbf{Z}-{\bf B}\mathbf{Y}_i\Bigr)+\mathbf{Z}' & \mu\bigl(\mathbf{Z+Z}'\bigr)
+% % 			\end{bmatrix},\\
+% % 			{\bf \tilde{Q}}&=\sum^{r}_{\rho=1}\phi_\rho\left({\bf Q}_\rho+{\bf S}\right).
+% % 			\end{align*}
+% % 	\end{block}
+% % 	\begin{itemize}
+% % 		\item Multiple Lyapunov matrices and slack matrices
+% % 		\item Reduced number of inequalities 
+% % 		\item Guarantees extra degrees of freedom to the LMI problems.
+% % 	\end{itemize}
+% % \end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %\begin{frame}
+% %	\begin{proof}
+% %		If \eqref{eqt33} and \eqref{eqt34} hold, by Lemma~\ref{lema1}, it yields
+% %		\[
+% %		\sum_{i=1}^{4}\sum_{j=1}^{4}h_ih_j\Psi_{ij}\prec {\bf 0}.
+% %		\]
+% %		Considering $\mathbf{K}_{i}=\mathbf{Y}_{i}\mathbf Z^{-1}$, from \autocite{Faria2013}, the inequality above ensures that
+% %		\begin{multline} \label{DVPA}
+% %		\left[ \sum_{i=1}^{4}\sum_{j=1}^{4}h_ih_j(\mathbf{A}_{ij}-\mathbf{B}\mathbf{K}_i)\right]'\left( \sum_{i=1}^{4}h_iP_i\right)\\+
+% %		\left( \sum_{i=1}^{4}h_iP_i\right)\left[  \sum_{i=1}^{4}\sum_{j=1}^{4}h_ih_j(\mathbf{A}_{ij}-\mathbf{B}\mathbf{K}_i)\right]\\
+% %		\sum^{4}_{\rho=1}\phi_\rho{\bf P}_\rho\prec {\bf 0}.
+% %		\end{multline}
+% %		
+% %	\end{proof}
+% %\end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %\begin{frame}
+% %	\begin{proof}
+% %		Thus, premultiplying and posmultiplying inequality~\eqref{DVPA} by $e(t)'$ and its transpose, respectively. By \eqref{eq22}, \eqref{lyap} and \eqref{der}, it follows that
+% %		\[
+% %		\dot V(e(t))<\mathbf{0},
+% %		\]
+% %		moreover, by \eqref{eqt31}, $V(e(t))>\mathbf{0}~~\forall e(t)\not=\mathbf{0}$. Therefore, system \eqref{eq22} is asymptotically stable for any $e(t)\in \mathcal{D}$.
+% %	\end{proof}
+% %\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %\begin{frame}{Invariant Set Theory}
+% %	\begin{itemize}
+% %		\item 
+% %		\item 
+% %	\end{itemize}
+% %
+% %\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

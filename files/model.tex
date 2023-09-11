@@ -1,0 +1,316 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Quadcopter Model}
+\begin{block}
+	
+Considering the the quadrotor's response to the input command vector  $u = \begin{bmatrix}
+u_{\nu_x}&
+u_{\nu_y}&
+u_{\dot{z}}&
+u_{\dot{\psi}}
+\end{bmatrix}^T$, the dynamics can be modeled as the following linear system \autocite{VagoSantana2014a}
+
+\begin{equation} \label{eq:Sant_lin}
+\ddot{q}_b=\Gamma_A\dot{q}_b+\Gamma_Bu
+\end{equation}
+where $q_b = \begin{bmatrix}
+x_b& 
+{y}_b&
+{z}_b&
+{\psi}_b
+\end{bmatrix}^T$ \begin{equation}
+\Gamma_A=-\begin{bmatrix}
+\gamma_2 & & & \\
+&\gamma_4 & &\\
+& &\gamma_6 &\\
+& & &\gamma_8
+\end{bmatrix}, ~\Gamma_B=\begin{bmatrix}
+\gamma_1 & & & \\
+&\gamma_3 & &\\
+& &\gamma_5 &\\
+& & &\gamma_7
+\end{bmatrix}
+\end{equation}
+
+\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	For control purposes, it's more convenient to work with position and orientation with respect to a global stationary frame. \newline
+	\newline
+	Considering rotation only in the $z$ axis, we have
+	\begin{equation} \label{eq:vel_trans}
+	% ^{W}\dot{q} &= \prescript{W}{B}R ^{B}\dot{q}
+	\dot{q} = R\dot{q_b} 
+	\end{equation}
+	where
+	\begin{equation} \label{eq:R_matrix}
+	R = \begin{bmatrix}
+	\cos{\psi} & -\sin{\psi} & 0 & 0 \\
+	\sin{\psi} & \cos{\psi} & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1
+	\end{bmatrix}
+	\end{equation}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\begin{block}{Santana et. al. (2014) - Global Reference Frame}
+			\begin{equation} \label{eq:robotic_dyn}
+			\ddot{q}+NR^{T}\dot{q} = Mu, 
+			\end{equation}
+			\begin{eqnarray}
+			M = \begin{bmatrix}
+			\gamma_1\cos{\psi} & -\gamma_3\sin{\psi} & 0 & 0 \\
+			\gamma_1\sin{\psi} & \gamma_3\cos{\psi} & 0 & 0 \\
+			0 & 0 & \gamma_5 & 0 \\
+			0 & 0 & 0 & \gamma_7
+			\end{bmatrix} \\
+			N =     \begin{bmatrix}
+			\gamma_2\cos{\psi} & -\gamma_4\sin{\psi} & 0 & 0 \\
+			\gamma_2\sin{\psi} & \gamma_4\cos{\psi} & 0 & 0 \\
+			0 & 0 & \gamma_6 & 0 \\
+			0 & 0 & 0 & \gamma_8
+			\end{bmatrix}.
+			\end{eqnarray}
+	\end{block}	
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{State Space Model}
+% 	Let us define a state vector $\mathbf{\zeta} = \begin{bmatrix}
+% 	\dot{q}^T & 
+% 	q^T
+% 	\end{bmatrix}^T = \begin{bmatrix}
+% 	\dot{x} & 
+% 	\dot{y}&
+% 	\dot{z}&
+% 	\dot{\psi} &
+% 	{x} & {y} & {z} & {\psi}
+% 	\end{bmatrix} ^T$. After some algebraic manipulation, one can obtain
+% 	\begin{equation} \label{eq:SS}
+% 	\dot{\mathbf{\zeta}} =   \begin{bmatrix}
+% 	-NR^T & ~0\\
+% 	~I  & ~0
+% 	\end{bmatrix} \mathbf{\zeta} + \begin{bmatrix}
+% 	M\\
+% 	0
+% 	\end{bmatrix}u
+% 	\end{equation}
+% 	where the input command vector is given by $u = \begin{bmatrix}
+% 	u_{\nu_x}&
+% 	u_{\nu_y}&
+% 	u_{\dot{z}}&
+% 	u_{\dot{\psi}}
+% 	\end{bmatrix}^T$.
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Error Model}
+\begin{block}{}
+	Given a twice differentiable desired state trajectory $\zeta_d(t) = \begin{bmatrix}\dot{q}_d^T & q_d^T \end{bmatrix}^T$, let us define the tracking error $e = \mathbf{\zeta} - \mathbf{\zeta}_{d}$,
+	\begin{equation} \label{eq:SS_error}
+\dot{e} = \begin{bmatrix} 
+-NR^T & 0 \\
+I & 0
+\end{bmatrix}e + \begin{bmatrix}
+I\\
+0
+\end{bmatrix}\nu
+\end{equation}
+where $\nu = - \ddot{q}_d -NR^T\dot{q}_d + Mu$ is a virtual control input to the error system. The control input to be sent to the quadrotor system is given by
+\begin{equation} \label{eq:real_control}
+u = M^{-1} (\nu + \ddot{q}_d + NR^T\dot{q}_d)
+% \nu = - \ddot{q}_d -NR^T\dot{q}_d + Mu
+\end{equation} 
+\end{block}
+\end{frame}
+
+\begin{frame}{System Analysis}
+
+\begin{itemize}
+    \item The origin is an unstable equilibrium point for system \eqref{eq:SS_error} and has an infinite number of equilibria located in $\{ e \in \mathbb{R}^8 :  e_1, e_2, e_3, e_4 = 0 \}$
+    \item Hartman-Grobman Theorem does not apply (linearized system with non hyperbolic equilibria)
+    \item To make the closed loop system have an unique equilibrium point at the origin, we modify \eqref{eq:real_control} 
+\begin{equation}
+    u = M^{-1} \left( \nu + \ddot{q}_d + NR^T\dot{q}_d -k(q-q_d) \right),
+\end{equation} \label{eq:real_cont_new}
+where $k$ is a positive scalar
+\item \begin{equation}
+    \Rightarrow \dot{e} = \begin{bmatrix}
+-NR^T & -kI\\
+I & 0
+\end{bmatrix}e + \begin{bmatrix}
+I\\
+0
+\end{bmatrix} \nu \label{eq:newclosedloop}
+\end{equation}
+\item We have not thoroughly studied the impact of this modification, but it seems to have increased the feasibility of the various LMI conditions we tested 
+\end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{LPV system}
+	The error system is given by
+	\begin{equation*} \label{eq:err_simple}
+	\dot{e} =  A(\psi)e + B\nu
+	\end{equation*} where
+	
+	\begin{equation*}
+			A(\psi)=-\begin{bmatrix} \begin{array}{cccc|c}
+				\gamma_{2}\cos^{2}(\psi) + \gamma_{4}\sin^{2}(\psi) &  \frac{\gamma_{4}-\gamma_{2}}{2}\sin(2\psi)&  &  & \multirow{4}{*}{0}\\
+				\frac{\gamma_{2}-\gamma_{4}}{2}\sin(2\psi) & \gamma_{4}\cos^{2}(\psi) + \gamma_{2}\sin^{2}(\psi) &  &  &\\
+				&  & \gamma_6 & &\\
+				&  &  & \gamma_8& \\ \hline
+				\multicolumn{3}{c}{-I} & & 0
+				\end{array}
+				\end{bmatrix}
+	\end{equation*} and \begin{equation*}
+		B = \begin{bmatrix}
+				I\\
+				0
+			\end{bmatrix}\nu
+			\end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modeling alternatives}
+	Different choices of parameter vectors yield different representations. For example, choosing  
+	\begin{equation} \label{eq:param_init}
+	\rho(t) = \begin{bmatrix}
+	\gamma_{2}\cos^{2}(\psi) + \gamma_{4}\sin^{2}(\psi) \\
+	\frac{\gamma_{2}-\gamma_{4}}{2}\sin(2\psi)
+	\end{bmatrix}
+	\end{equation} 
+	as the parameter vector, one can write 
+	\begin{equation} \label{eq:err_LPV}
+	\dot{e} =  (A_{0} + \sum_{i=1}^{2}A_{i}\rho_{i})e + B\nu
+	\end{equation} 
+	for some appropriate $A_i$, $i=0,\dots, 2$. The parameters bounds are given by 
+	\begin{equation} \label{eq:param_init_bounds}
+	\begin{aligned}
+	\rho_{1} \in [\min(\gamma_{2},\gamma_{4}), ~\max(\gamma_{2},\gamma_{4})]\\
+	\rho_{2} \in [-\frac{\gamma_{2}-\gamma_{4}}{2},~\frac{\gamma_{2}-\gamma_{4}}{2}].
+	\end{aligned}
+	\end{equation} 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modeling alternatives}
+	As an alternative we have 
+	\begin{equation} 
+	\rho(t) = \begin{bmatrix}
+	\cos^{2}(\psi)\\
+	\sin^{2}(\psi)\\
+	\sin(2\psi)
+	\end{bmatrix}
+	\end{equation} with bounds  
+	\begin{equation} \label{eq:param_final_bounds}
+	\rho_{1},\rho_{2} \in [0, 1], ~\rho_{3} \in [-1,1]
+	\end{equation} 
+	which gives a representation of the form
+	\begin{equation} \label{eq:err_LPV_final}
+	\dot{e} =  (A_{0} + \sum_{i=1}^{3}A_{i}\rho_{i})e + B\nu
+	\end{equation} 
+\end{frame}
+
+\begin{frame}{Modeling alternatives}
+	Using the sector nonlinearity approach, the regular choice of premises would be
+	\begin{subequations}
+		\begin{eqnarray}
+		z_1(t)&=&	\gamma_{2}\cos^{2}(\psi) + \gamma_{4}\sin^{2}(\psi)\\
+		z_2(t)&=&\frac{\gamma_{2}-\gamma_{4}}{2}\sin(2\psi)
+		\end{eqnarray}
+	\end{subequations}
+	However, choosing simpler premises 
+	\begin{subequations}
+		\begin{align}
+		z_1(t)=\cos{\psi(t)} \\
+		z_2(t)=\sin{\psi(t)}
+		\end{align}
+	\end{subequations} still gives an exact representation of the error system.
+\end{frame}
+
+% \begin{frame}{TS-fuzzy modeling}
+% Continuing to build the TS-fuzzy model, we have 
+% \begin{subequations} 
+% 	\begin{align}
+% 	z_1(t)&=\cos{\psi(t)}=(1)\omega_1^1+(-1)\omega_0^1 \\
+% 	z_2(t)&=\sin{\psi(t)}=(1)\omega_1^2+(-1)\omega_0^2,
+% 	\end{align}
+% \end{subequations} where
+
+% \begin{equation} 
+% \sum_{i=0}^{1}\omega_{i}^{k} = 1 ~\forall k \in \{1,2\}.
+% \end{equation}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{TS modeling}
+% 	We, then, find \begin{subequations} 
+% 		\begin{align}
+% 		w_0^1=\dfrac{z_1+1}{2},~ w_1^1=1-w_0^1\\
+% 		w_0^2=\dfrac{z_2+1}{2},~ w_1^2=1-w_0^2.
+% 		\end{align}
+% 	\end{subequations}
+% \end{frame}
+
+\begin{frame}
+	\begin{block}{TS-fuzzy model}
+	The tracking error system can be thus represented as
+	\begin{equation}
+	\dot{e}(t) = \sum_{i=1}^{4}\sum_{j=1}^{4}h_i h_jA_{ij}e+B\nu =\sum_{i=1}^{4}\sum_{j=1}^{4}h_i h_j\begin{bmatrix}
+	-N_iR_j^T & 0 \\
+	I & 0
+	\end{bmatrix}e+\begin{bmatrix}
+	I\\
+	0
+	\end{bmatrix}\nu
+	\end{equation} where $N_i,R_j$ are the matrices of the local models of the system and 
+		\begin{equation} 
+		\forall\, i\in\{1,\ldots, 4\},~~h_i(\psi) \geq 0 \text{~~and~~} \sum_{i=1}^{r}h_i(\psi)=1.
+		\end{equation}
+		\begin{equation}
+		\begin{aligned}
+		h_{1}(\psi)&=w_1^1(\psi)w_1^2(\psi),& h_{2}(\psi)&=w_1^1(\psi)w_0^2(\psi),\\
+		h_{3}(\psi)&=w_0^1(\psi)w_1^2(\psi),& h_{4}(\psi)&=w_0^1(\psi)w_0^2(\psi). \\
+			w_0^1&=\dfrac{\cos(\psi(t))+1}{2},~& w_1^1&=1-w_0^1\\
+	w_0^2&=\dfrac{\sin(\psi(t))+1}{2},~& w_1^2&=1-w_0^2.
+		\end{aligned}    
+		\end{equation}
+
+	\end{block}
+\end{frame}
+
+\begin{frame}{Models summary}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{c|c}
+             $\#$ & Description \\ \hline
+             1& 4 subsystems \\ \hline
+             2& 16 subsystems\\ \hline
+             3& 10 subsystems\\ \hline
+             4& 8 subsystems\\ \hline
+        \end{tabular}
+        \caption{Summary of different modeling alternatives we developed}
+        \label{tab:my_label}
+    \end{table}
+    \begin{block}{}
+    All the models are equivalent to each other and exactly represent the nonlinear system. For proof, check \cite{Araujo2019}
+    \end{block}
+\end{frame}
+    % \begin{frame}{TS modeling}
+    % Rewriting the TS-fuzzy representation in a quasi LPV notation, we have
+    % \begin{equation}
+    % \dot{e}(t) = \mathcal{A}(\rho)e+B\nu
+    % \end{equation}
+    % with
+    % \begin{eqnarray}
+    % \mathcal{A}(\rho)& =& \sum_{i=1}^{9}\rho_i\mathcal{A}_i \nonumber\\&=&  \sum_{i=1}^{4}\sum_{j=1}^{4}h_i(\psi)h_j(\psi)\begin{bmatrix}
+    % -N_iR_j^T & 0 \\
+    % I & 0
+    % \end{bmatrix}.
+    % \end{eqnarray}
+    % \end{frame}
+
+
